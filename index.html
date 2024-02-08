@@ -7,9 +7,9 @@
     <title>Document</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
+
     <style>
-        
+
         .social-icons a {
             background-color: transparent;
             border-radius: 50%;
@@ -28,8 +28,8 @@
         #exploreText {
             font-size: 5rem;
             transform: translate(90px, 10px);
-            opacity: 0; 
-            animation: fadeIn 1s ease forwards;
+            opacity: 1; 
+            transition: opacity 1s; /* Added transition for opacity change */
         }
         .see-more-details{
             font-size: 1.3rem;
@@ -67,7 +67,7 @@
             max-width: 350px; 
             width: 90%;
             margin-left: 107px;
-            animation: minimizeModal 1s ease forwards; /* Changed animation duration */
+            animation: expandModal 1s ease forwards; /* Changed animation to expandModal */
         }
 
         .modal-close {
@@ -82,34 +82,6 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
-        }
-
-        @keyframes minimizeModal {
-            0% { 
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.2);
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes maximizeModal {
-            0% { 
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.2);
-            }
-            100% {
-                transform: scale(0.8);
-                opacity: 0;
-            }
         }
 
         @keyframes expandModal {
@@ -136,28 +108,26 @@
             animation: spin 0.5s linear; /* Added spin animation to the clicked button */
         }
 
-/* For desktop */
-@media only screen and (min-width: 1024px) {
-  #exploreText {
-    font-size: 8rem;
-    transform: translate(240px, 10px);
-  }
-  .add-icon {
-    transform: translate(106px, 10px);
- 
-}
-}
+        /* For desktop */
+        @media only screen and (min-width: 1024px) {
+          #exploreText {
+            font-size: 8rem;
+            transform: translate(240px, 10px);
+          }
+          .add-icon {
+            transform: translate(106px, 10px);
+          }
+        }
 
-@media only screen and (max-width: 1023px) {
-  #exploreText {
-    font-size: 4rem;
-    transform: translate(82px, 10px);
-  }
-}
-#readMoreBtn {
-    background: linear-gradient(90deg, #611818 0%, #A36754 100%);
-}
-
+        @media only screen and (max-width: 1023px) {
+          #exploreText {
+            font-size: 4rem;
+            transform: translate(82px, 10px);
+          }
+        }
+        #readMoreBtn {
+            background: linear-gradient(90deg, #611818 0%, #A36754 100%);
+        }
 
     </style>
 </head>
@@ -198,61 +168,48 @@
         </div>
     </div>
     <script>
-                // Get the modal
-                let modal = document.getElementById("myModal");
+        // Get the modal
+        let modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-let btn = document.getElementById("openModal");
+        // Get the modal content
+        let modalContent = document.querySelector(".modal-content");
 
-// Get the <span> element that closes the modal
-let span = document.getElementById("closeModal");
+        // Get the button that opens the modal
+        let btn = document.getElementById("openModal");
 
-// Get the read more button
-let readMoreBtn = document.getElementById("readMoreBtn");
+        // Get the <span> element that closes the modal
+        let span = document.getElementById("closeModal");
 
-// Get the explore text
-let exploreText = document.getElementById("exploreText");
+        // Get the read more button
+        let readMoreBtn = document.getElementById("readMoreBtn");
 
-// Fade in explore text on page load
-window.onload = function() {
-    exploreText.style.opacity = 1;
-};
+        // Get the explore text
+        let exploreText = document.getElementById("exploreText");
 
-// When the user clicks the button, animate the button and then open the modal
-btn.onclick = function() {
-    // Animate the button first
-    btn.classList.add('clicked'); // Add class for spinning effect
-    setTimeout(function() {
-        btn.classList.remove('clicked'); // Remove class after animation completes
-        // Show the modal after animation completes
-        modal.style.display = "block";
-        // Animate the modal content
-        modalContent.style.animation = "minimizeModal 1.5s ease forwards"; // Adjusted animation duration
-        // Animate the explore text
-        exploreText.style.opacity = 0; // Fade out the explore text
-        setTimeout(function() {
-            exploreText.style.display = "none"; // Hide the explore text after fading out
-        }, 1500); // Adjust the delay to match the duration of the fade-out animation
-    }, 500); // Adjust the delay for smoother effect
-}
+        // When the user clicks the button, animate the button and then open the modal
+        btn.onclick = function() {
+            // Animate the modal content expansion
+            modal.style.display = "block";
+            modalContent.style.animation = "expandModal 1s ease forwards"; // Adjusted animation duration
+            // Fade out the explore text
+            exploreText.style.opacity = 0;
+        }
 
-// When the user clicks on <span> (x) or the read more button, close the modal
-span.onclick = readMoreBtn.onclick = function() {
-    modal.style.display = "none";
-    // Reset explore text styles
-    exploreText.style.display = "block";
-    exploreText.style.opacity = 1;
-}
+        // When the user clicks on <span> (x) or the read more button, close the modal
+        span.onclick = readMoreBtn.onclick = function() {
+            modal.style.display = "none";
+            // Reset explore text styles
+            exploreText.style.opacity = 1;
+        }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-        // Reset explore text styles
-        exploreText.style.display = "block";
-        exploreText.style.opacity = 1;
-    }
-}
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                // Reset explore text styles
+                exploreText.style.opacity = 1;
+            }
+        }
     </script>
 </body>
 
