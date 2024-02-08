@@ -170,7 +170,7 @@
                 </div>
             </div>
         </aside>
-        <section class="w-3/4 h-screen bg-cover bg-center relative" style="background-image: url('comp-modal.png');">
+        <section id="backgroundSection" class="w-3/4 h-screen bg-cover bg-center relative" data-bg-image-url="comp-modal.png">
             <div class="main-content">
                 <div class="social-icons absolute flex flex-col-reverse bottom-5 right-5 space-y-2">
                     <a href="#" class="flex items-center justify-center">
@@ -199,6 +199,13 @@
         window.onload = function() {
             exploreText.style.opacity = 1;
         };
+
+        // Lazy load the background image
+        document.addEventListener("DOMContentLoaded", function() {
+            const section = document.getElementById('backgroundSection');
+            const imageUrl = section.dataset.bgImageUrl;
+            section.style.backgroundImage = `url('${imageUrl}')`;
+        });
 
         // Get the modal
         let modal = document.getElementById("myModal");
