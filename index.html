@@ -29,6 +29,8 @@
         #exploreText {
             font-size: 5rem;
             transform: translate(90px, 10px);
+            opacity: 0; /* Initially hide the element */
+            animation: fadeIn 1s ease forwards; /* Apply fade-in animation */
         }
         .see-more-details{
             font-size: 1.3rem;
@@ -215,6 +217,11 @@
         // Get the explore text
         var exploreText = document.getElementById("exploreText");
 
+        // Fade in explore text on page load
+        window.onload = function() {
+            exploreText.style.opacity = 1;
+        };
+
         // When the user clicks the button, animate the button and then open the modal
         btn.onclick = function() {
             // Animate the button first
@@ -224,23 +231,28 @@
                 // Show the modal after animation completes
                 modal.style.display = "block";
                 // Animate the explore text
-                exploreText.classList.add("minimize-animation");
+                exploreText.style.opacity = 0; // Fade out the explore text
+                setTimeout(function() {
+                    exploreText.style.display = "none"; // Hide the explore text after fading out
+                }, 500); // Adjust the delay to match the duration of the fade-out animation
             }, 300); // Adjust the delay for smoother effect
         }
 
         // When the user clicks on <span> (x) or the read more button, close the modal
         span.onclick = readMoreBtn.onclick = function() {
             modal.style.display = "none";
-            // Remove the animation from explore text when modal closes
-            exploreText.classList.remove("minimize-animation");
+            // Reset explore text styles
+            exploreText.style.display = "block";
+            exploreText.style.opacity = 1;
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
-                // Remove the animation from explore text when modal closes
-                exploreText.classList.remove("minimize-animation");
+                // Reset explore text styles
+                exploreText.style.display = "block";
+                exploreText.style.opacity = 1;
             }
         }
     </script>
