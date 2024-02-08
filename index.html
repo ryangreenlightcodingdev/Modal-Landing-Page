@@ -53,7 +53,7 @@
             height: 100%;
             padding-top: 60px; /* Location of modal header */
             z-index: 2000;
-            animation: fadeIn 0.5s ease-in-out forwards; /* Smooth out modal opening effect */
+            animation: slideIn 0.5s ease forwards; /* Slide in animation */
         }
 
         .modal-content {
@@ -61,8 +61,9 @@
             margin: 5% auto; /* 5% from the top and centered */
             padding: 20px;
             border: 1px solid #888;
-            width: 80%; /* Could be more or less, depending on screen size */
-            animation: slideIn 0.5s ease forwards; /* Slide in animation */
+            max-width: 350px; /* Adjust the maximum width */
+            width: 90%; /* Set the width to 90% of the container */
+            animation: fadeIn 0.5s ease forwards; /* Smooth out modal opening effect */
         }
 
         .modal-close {
@@ -91,10 +92,19 @@
 
         @keyframes slideIn {
             from {
-                transform: translateY(-100%);
+                transform: translateX(-100%);
             }
             to {
-                transform: translateY(0);
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
             }
         }
     </style>
