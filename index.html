@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
     <style>
-
         .social-icons a {
             background-color: transparent;
             border-radius: 50%;
@@ -17,37 +16,46 @@
             margin-bottom: 10px;
         }
 
-        .fa-instagram:before, .fa-facebook:before {
-            color:white;
+        .fa-instagram:before,
+        .fa-facebook:before {
+            color: white;
         }
 
         .social-icons a i {
             color: #1F2937;
-            font-size: 1.5rem; 
+            font-size: 1.5rem;
         }
+
         #exploreText {
             font-size: 5rem;
             transform: translate(90px, 10px);
-            opacity: 1; 
+            opacity: 1;
             transition: opacity 1s; /* Added transition for opacity change */
         }
-        .see-more-details{
+
+        .see-more-details {
             font-size: 1.3rem;
         }
+
         .add-icon {
             transform: translate(50px, 10px);
             transition: transform 0.3s ease;
         }
+
         .add-icon:hover {
             transform: translate(50px, 10px) scale(1.1);
         }
-        .fa-plus-circle:before{
-            font-size:2rem;
+
+        .fa-plus-circle:before {
+            font-size: 2rem;
             transition: transform 0.5s ease; /* Added transition for button */
         }
-        .fa-instagram:before,.fa-facebook:before {
-            font-size:2rem;
+
+        .fa-instagram:before,
+        .fa-facebook:before {
+            font-size: 2rem;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -64,7 +72,7 @@
             background-color: #fefefe;
             padding: 20px;
             border: 1px solid #888;
-            max-width: 350px; 
+            max-width: 350px;
             width: 90%;
             margin-left: 107px;
             animation: expandModal 1s ease forwards; /* Changed animation to expandModal */
@@ -89,46 +97,54 @@
                 transform: scale(0.8);
                 opacity: 0;
             }
+
             100% {
                 transform: scale(1);
                 opacity: 1;
             }
         }
 
-        .fa-plus-circle:before{
+        .fa-plus-circle:before {
             cursor: pointer;
         }
 
         /* Button spin animation */
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
+
         .fa-plus-circle.clicked {
             animation: spin 0.5s linear; /* Added spin animation to the clicked button */
         }
 
         /* For desktop */
         @media only screen and (min-width: 1024px) {
-          #exploreText {
-            font-size: 8rem;
-            transform: translate(240px, 10px);
-          }
-          .add-icon {
-            transform: translate(106px, 10px);
-          }
+            #exploreText {
+                font-size: 8rem;
+                transform: translate(240px, 10px);
+            }
+
+            .add-icon {
+                transform: translate(106px, 10px);
+            }
         }
 
         @media only screen and (max-width: 1023px) {
-          #exploreText {
-            font-size: 4rem;
-            transform: translate(82px, 10px);
-          }
+            #exploreText {
+                font-size: 4rem;
+                transform: translate(82px, 10px);
+            }
         }
+
         #readMoreBtn {
             background: linear-gradient(90deg, #611818 0%, #A36754 100%);
         }
-
     </style>
 </head>
 
@@ -186,14 +202,26 @@
         // Get the explore text
         let exploreText = document.getElementById("exploreText");
 
-        // When the user clicks the button, animate the button and then open the modal
-        btn.onclick = function() {
-            // Animate the modal content expansion
-            modal.style.display = "block";
-            modalContent.style.animation = "expandModal 1s ease forwards"; // Adjusted animation duration
-            // Fade out the explore text
-            exploreText.style.opacity = 0;
+        // Function to handle button click
+        function handleButtonClick() {
+            // Add spinning animation to the button
+            btn.classList.add('clicked');
+            // Delay the modal popup by 0.5 seconds
+            setTimeout(function() {
+                // Animate the modal content expansion
+                modal.style.display = "block";
+                modalContent.style.animation = "expandModal 1s ease forwards"; // Adjusted animation duration
+                // Fade out the explore text
+                exploreText.style.opacity = 0;
+                // Remove 'clicked' class after animation completes
+                setTimeout(function() {
+                    btn.classList.remove('clicked');
+                }, 1000);
+            }, 500);
         }
+
+        // When the user clicks the button, animate the button and then open the modal
+        btn.onclick = handleButtonClick;
 
         // When the user clicks on <span> (x) or the read more button, close the modal
         span.onclick = readMoreBtn.onclick = function() {
