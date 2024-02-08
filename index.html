@@ -5,7 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Link to Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Link to Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styling */
+        .social-icons a {
+            background-color: white;
+            border-radius: 50%;
+            padding: 12px;
+        }
+
+        .social-icons a:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .social-icons a i {
+            color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
 </head>
 
 <body>
@@ -27,9 +46,13 @@
             <!-- Main content -->
             <div class="main-content">
                 <!-- Social media icons -->
-                <div class="social-icons absolute flex flex-col-reverse bottom-5 right-5">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
+                <div class="social-icons absolute flex flex-col-reverse bottom-5 right-5 space-y-2">
+                    <a href="#" class="flex items-center justify-center">
+                        <i class="fab fa-instagram text-black"></i>
+                    </a>
+                    <a href="#" class="flex items-center justify-center">
+                        <i class="fab fa-facebook text-black"></i>
+                    </a>
                 </div>
             </div>
         </section>
