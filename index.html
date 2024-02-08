@@ -51,9 +51,7 @@
             top: 0;
             width: 100%; /* Full width */
             height: 100%;
-            overflow: auto; /* Enable scroll if needed */
             padding-top: 60px; /* Location of modal header */
-            max-width: 500px;
             z-index: 2000;
             animation: fadeIn 0.5s ease-in-out forwards; /* Smooth out modal opening effect */
         }
@@ -64,6 +62,7 @@
             padding: 20px;
             border: 1px solid #888;
             width: 80%; /* Could be more or less, depending on screen size */
+            animation: slideIn 0.5s ease forwards; /* Slide in animation */
         }
 
         .modal-close {
@@ -88,6 +87,15 @@
 
         .minimize-animation {
             animation: minimize 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -126,7 +134,8 @@
     </div>
 
     <!-- Modal -->
-    <div id="myModal" class="modal">
+    <div id="myModal" class="modal hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
+        <!-- Modal content -->
         <div class="modal-content">
             <span id="closeModal" class="modal-close">&times;</span>
             <h1 style="padding:20px; padding-left:0px;color:#611818;font-size: 4rem;">Explore</h1>
