@@ -7,8 +7,147 @@
     <title>Document</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="index.js" defer></script>
-    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        
+        .social-icons a {
+            background-color: transparent;
+            border-radius: 50%;
+            padding: 12px;
+            margin-bottom: 10px;
+        }
+
+        .fa-instagram:before, .fa-facebook:before {
+            color:white;
+        }
+
+        .social-icons a i {
+            color: #1F2937;
+            font-size: 1.5rem; 
+        }
+        #exploreText {
+            font-size: 5rem;
+            transform: translate(90px, 10px);
+            opacity: 0; 
+            animation: fadeIn 1s ease forwards;
+        }
+        .see-more-details{
+            font-size: 1.3rem;
+        }
+        .add-icon {
+            transform: translate(50px, 10px);
+            transition: transform 0.3s ease;
+        }
+        .add-icon:hover {
+            transform: translate(50px, 10px) scale(1.1);
+        }
+        .fa-plus-circle:before{
+            font-size:2rem;
+        }
+        .fa-instagram:before,.fa-facebook:before {
+            font-size:2rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            padding-top: 60px;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            max-width: 350px; 
+            width: 90%;
+            animation: popOut 0.5s ease forwards;
+            margin-left: 107px;
+        }
+
+        .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes minimize {
+            0% { font-size: 5rem; opacity: 1; }
+            100% { font-size: 0; opacity: 0; }
+        }
+
+        .minimize-animation {
+            animation: minimize 0.5s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes popOut {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .fa-plus-circle:before{
+            cursor: pointer;
+        }
+/* For desktop */
+@media only screen and (min-width: 1024px) {
+  #exploreText {
+    font-size: 8rem;
+    transform: translate(240px, 10px);
+  }
+  .add-icon {
+    transform: translate(106px, 10px);
+ 
+}
+}
+
+@media only screen and (max-width: 1023px) {
+  #exploreText {
+    font-size: 4rem;
+    transform: translate(82px, 10px);
+  }
+}
+#readMoreBtn {
+    background: linear-gradient(90deg, #611818 0%, #A36754 100%);
+}
+
+
+    </style>
 </head>
 
 <body class="font-serif">
@@ -46,5 +185,60 @@
             <button id="readMoreBtn" style="margin:20px; margin-left:0px;padding-left:10px;padding-right:10px; padding-top:10px;padding-bottom:10px;border:none; background-color:#611818;max-width:750px; color:white; width: 45%;margin-bottom:50px;margin-top:50px;">Read More</button>
         </div>
     </div>
+    <script>
+                // Get the modal
+                let modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+let btn = document.getElementById("openModal");
+
+// Get the <span> element that closes the modal
+let span = document.getElementById("closeModal");
+
+// Get the read more button
+let readMoreBtn = document.getElementById("readMoreBtn");
+
+// Get the explore text
+let exploreText = document.getElementById("exploreText");
+
+// Fade in explore text on page load
+window.onload = function() {
+    exploreText.style.opacity = 1;
+};
+
+// When the user clicks the button, animate the button and then open the modal
+btn.onclick = function() {
+    // Animate the button first
+    btn.style.transform = "scale(0.8)"; // Adjust the scale value to make it cave in more
+    setTimeout(function() {
+        btn.style.transform = "scale(1)";
+        // Show the modal after animation completes
+        modal.style.display = "block";
+        // Animate the explore text
+        exploreText.style.opacity = 0; // Fade out the explore text
+        setTimeout(function() {
+            exploreText.style.display = "none"; // Hide the explore text after fading out
+        }, 500); // Adjust the delay to match the duration of the fade-out animation
+    }, 300); // Adjust the delay for smoother effect
+}
+
+// When the user clicks on <span> (x) or the read more button, close the modal
+span.onclick = readMoreBtn.onclick = function() {
+    modal.style.display = "none";
+    // Reset explore text styles
+    exploreText.style.display = "block";
+    exploreText.style.opacity = 1;
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        // Reset explore text styles
+        exploreText.style.display = "block";
+        exploreText.style.opacity = 1;
+    }
+}
+    </script>
 </body>
 </html>
