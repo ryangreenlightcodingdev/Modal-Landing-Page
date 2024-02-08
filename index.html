@@ -42,6 +42,53 @@
         .fa-instagram:before,.fa-facebook:before {
             font-size:2.2rem;
         }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hide modal by default */
+            position: fixed;
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            padding-top: 60px; /* Location of modal header */
+            max-width: 500px;
+            z-index: 2000;
+            animation: fadeIn 0.5s ease-in-out forwards; /* Smooth out modal opening effect */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 5% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Added animation for Explore text */
+        @keyframes minimize {
+            0% { font-size: 5rem; opacity: 1; }
+            100% { font-size: 0; opacity: 0; }
+        }
+
+        .minimize-animation {
+            animation: minimize 0.5s ease forwards;
+        }
     </style>
 </head>
 
@@ -79,11 +126,62 @@
     </div>
 
     <!-- Modal -->
-    <div id="myModal" class="modal hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
-        <!-- Modal content -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="modal-close">&times;</span>
+            <h1 style="padding:20px; padding-left:0px;color:#611818;font-size: 4rem;">Explore</h1>
+            <p style="padding-top:20px;">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? 
+            </p>
+            <button id="readMoreBtn" style="margin:20px; margin-left:0px;padding-left:10px;padding-right:10px; padding-top:10px;padding-bottom:10px;border:none; background-color:#611818;max-width:750px; color:white; width: 45%;margin-bottom:50px;margin-top:50px;">Read More</button>
+        </div>
     </div>
 
     <!-- Your JavaScript code here -->
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("openModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementById("closeModal");
+
+        // Get the read more button
+        var readMoreBtn = document.getElementById("readMoreBtn");
+
+        // Get the explore text
+        var exploreText = document.getElementById("exploreText");
+
+        // When the user clicks the button, animate the button and then open the modal
+        btn.onclick = function() {
+            // Animate the button first
+            btn.style.transform = "scale(0.8)"; // Adjust the scale value to make it cave in more
+            setTimeout(function() {
+                btn.style.transform = "scale(1)";
+                // Show the modal after animation completes
+                modal.style.display = "block";
+                // Animate the explore text
+                exploreText.classList.add("minimize-animation");
+            }, 300); // Adjust the delay for smoother effect
+        }
+
+        // When the user clicks on <span> (x) or the read more button, close the modal
+        span.onclick = readMoreBtn.onclick = function() {
+            modal.style.display = "none";
+            // Remove the animation from explore text when modal closes
+            exploreText.classList.remove("minimize-animation");
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                // Remove the animation from explore text when modal closes
+                exploreText.classList.remove("minimize-animation");
+            }
+        }
+    </script>
 </body>
 
 </html>
