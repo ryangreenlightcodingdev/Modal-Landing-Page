@@ -43,6 +43,7 @@
         }
         .fa-plus-circle:before{
             font-size:2rem;
+            transition: transform 0.5s ease; /* Added transition for button */
         }
         .fa-instagram:before,.fa-facebook:before {
             font-size:2rem;
@@ -65,8 +66,8 @@
             border: 1px solid #888;
             max-width: 350px; 
             width: 90%;
-            animation: popOut 0.5s ease forwards;
             margin-left: 107px;
+            animation: minimizeModal 1s ease forwards; /* Changed animation duration */
         }
 
         .modal-close {
@@ -83,34 +84,35 @@
             cursor: pointer;
         }
 
-        @keyframes minimize {
-            0% { font-size: 5rem; opacity: 1; }
-            100% { font-size: 0; opacity: 0; }
-        }
-
-        .minimize-animation {
-            animation: minimize 0.5s ease forwards;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
+        @keyframes minimizeModal {
+            0% { 
+                transform: scale(0.8);
                 opacity: 0;
             }
-            to {
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
                 opacity: 1;
             }
         }
 
-        @keyframes popOut {
+        @keyframes maximizeModal {
+            0% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        @keyframes expandModal {
             0% {
                 transform: scale(0.8);
                 opacity: 0;
@@ -124,6 +126,16 @@
         .fa-plus-circle:before{
             cursor: pointer;
         }
+
+        /* Button spin animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .fa-plus-circle.clicked {
+            animation: spin 0.5s linear; /* Added spin animation to the clicked button */
+        }
+
 /* For desktop */
 @media only screen and (min-width: 1024px) {
   #exploreText {
@@ -209,17 +221,19 @@ window.onload = function() {
 // When the user clicks the button, animate the button and then open the modal
 btn.onclick = function() {
     // Animate the button first
-    btn.style.transform = "scale(0.8)"; // Adjust the scale value to make it cave in more
+    btn.classList.add('clicked'); // Add class for spinning effect
     setTimeout(function() {
-        btn.style.transform = "scale(1)";
+        btn.classList.remove('clicked'); // Remove class after animation completes
         // Show the modal after animation completes
         modal.style.display = "block";
+        // Animate the modal content
+        modalContent.style.animation = "minimizeModal 1.5s ease forwards"; // Adjusted animation duration
         // Animate the explore text
         exploreText.style.opacity = 0; // Fade out the explore text
         setTimeout(function() {
             exploreText.style.display = "none"; // Hide the explore text after fading out
-        }, 500); // Adjust the delay to match the duration of the fade-out animation
-    }, 300); // Adjust the delay for smoother effect
+        }, 1500); // Adjust the delay to match the duration of the fade-out animation
+    }, 500); // Adjust the delay for smoother effect
 }
 
 // When the user clicks on <span> (x) or the read more button, close the modal
@@ -241,4 +255,5 @@ window.onclick = function(event) {
 }
     </script>
 </body>
+
 </html>
